@@ -1,5 +1,5 @@
 //
-//  SwiftUIView.swift
+//  DikidiView.swift
 //  DikidiNour
 //
 //  Created by Vovchela10 on 04.06.2024.
@@ -24,7 +24,7 @@ struct DikidiView: View {
                     TitleSection()
                     ScrollView {
                         PopularSection()
-                        VipSection()
+                        PremiumSection()
                         DiscontSectionView()
                         ExamplesSection()
                     }
@@ -34,7 +34,7 @@ struct DikidiView: View {
             .navigationTitle("")
             .navigationBarTitleDisplayMode(.inline)
             .onAppear {
-                viewModel.fetchDikidiData()
+                viewModel.onAppear()
             }
             .environmentObject(viewModel)
         }

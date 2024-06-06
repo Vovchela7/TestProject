@@ -8,11 +8,28 @@
 import SwiftUI
 
 struct PopularSection: View {
+    @EnvironmentObject private var mainViewModel: DikidiViewModel
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(alignment: .leading) {
+            HStack {
+                Text("Популярное")
+                    .bold()
+                Text("\(mainViewModel.highRatingCompanies.count)")
+                    .foregroundColor(.secondary)
+            }
+            .padding(.horizontal)
+            .font(.title2)
+            
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 10) {
+                    ForEach(mainViewModel.highRatingCompanies, id: \.self.id) { card in
+                        PopularSectionCell(card: card)
+                    }
+                }
+                .padding(.horizontal, 10)
+            }
+        }
+        .padding(.bottom)
     }
-}
-
-#Preview {
-    PopularSection()
 }

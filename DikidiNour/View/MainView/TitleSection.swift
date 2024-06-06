@@ -1,5 +1,5 @@
 //
-//  UpSection.swift
+//  TitleSection.swift
 //  DikidiNour
 //
 //  Created by Vovchela10 on 05.06.2024.
@@ -9,6 +9,8 @@ import Foundation
 import SwiftUI
 
 struct TitleSection: View {
+    @EnvironmentObject var viewModel: DikidiViewModel
+
     var body: some View {
         ZStack {
             Color.blue
@@ -20,7 +22,7 @@ struct TitleSection: View {
                     .foregroundColor(.white)
                     .padding(.bottom, 1)
                 HStack(spacing: 2) {
-                    Text("Ярославль (Ярославская область)")
+                    Text(viewModel.locationText)
                         .font(.caption)
                     Image(systemName: "chevron.right")
                         .font(.caption2)
@@ -38,10 +40,13 @@ struct TitleSection: View {
                         .padding(.horizontal)
                     }
                     .frame(height: 40)
-                    Image("MapPoint")
+                    Image("Geo")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 20, height: 20)
+                        .onTapGesture {
+                            viewModel.requestLocation()
+                        }
                 }
             }
             .padding()
@@ -49,11 +54,5 @@ struct TitleSection: View {
         }
         .ignoresSafeArea(edges: .top)
         .frame(height: 100)
-    }
-}
-
-struct TitleSection_Previews: PreviewProvider {
-    static var previews: some View {
-        TitleSection()
     }
 }

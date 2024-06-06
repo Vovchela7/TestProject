@@ -7,12 +7,37 @@
 
 import SwiftUI
 
-struct CatalogView: View {
+struct CatalogSection: View {
+    @EnvironmentObject private var mainViewModel: DikidiViewModel
+    
+    let columns = [
+        GridItem(.flexible(), spacing: 15),
+        GridItem(.flexible(), spacing: 15)
+    ]
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(alignment: .leading) {
+            TitleSection()
+            HStack {
+                Text("Все компании")
+                    .bold()
+                Text("\(mainViewModel.catalog.count)")
+                    .foregroundColor(.secondary)
+            }
+            .padding(.horizontal)
+            .font(.title2)
+            
+            ScrollView {
+                LazyVGrid(columns: columns, spacing: 15) {
+                    ForEach(mainViewModel.catalog, id: \.self.id) { card in
+                        CatalogSectionCell(card: card)
+                            .frame(height: 200) 
+                    }
+                }
+                .padding(.horizontal)
+            }
+        }
+        .padding(.bottom)
+        .background(Color(.systemGroupedBackground))
     }
-}
-
-#Preview {
-    CatalogView()
 }

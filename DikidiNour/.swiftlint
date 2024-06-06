@@ -1,0 +1,39 @@
+# Список правил, которые нужно отключить
+disabled_rules:
+  - force_cast
+  - force_try
+  - force_unwrapping
+  - trailing_whitespace
+  - line_length
+
+# Включенные правила
+opt_in_rules:
+  - empty_count
+  - explicit_init
+
+# Максимальная длина строки
+line_length:
+  warning: 120
+  error: 200
+  ignores_comments: true
+  ignores_urls: true
+
+# Отключение проверки для файлов и директорий
+excluded:
+  - Carthage
+  - Pods
+  - fastlane
+  - SourcePackages
+  - .build
+
+# Включение проверки только для определенных файлов и директорий
+included:
+  - Source
+
+# Настройки для конкретных правил
+type_name:
+  min_length: 3
+  max_length: 40
+  excluded:
+    - id
+    - URL

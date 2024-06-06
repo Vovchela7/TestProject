@@ -12,28 +12,33 @@ struct DiscontSectionView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            HStack {
-                Text("Акции")
-                    .bold()
-                    .font(.title2)
-                Text("14")
-                    .foregroundColor(.secondary)
-                    .font(.title2)
-                Spacer()
-                Text("См. все")
-                    .foregroundColor(.accentColor)
-            }
-            .padding(.horizontal)
+            header
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 15) {
-                    Spacer()
-                        .frame(width: 10)
+                    Spacer().frame(width: 10)
                     ForEach(mainViewModel.shares, id: \.self.id) { card in
-DiscontCell(card: card)                    }
+                        DiscontSectionCell(card: card)
+                    }
                 }
+                .padding(.horizontal, 10)
             }
         }
         .padding(.bottom)
+    }
+    
+    private var header: some View {
+        HStack {
+            Text("Акции")
+                .bold()
+                .font(.title2)
+            Text("\(mainViewModel.shares.count)")
+                .foregroundColor(.secondary)
+                .font(.title2)
+            Spacer()
+            Text("См. все")
+                .foregroundColor(.accentColor)
+        }
+        .padding(.horizontal)
     }
 }
 

@@ -1,5 +1,5 @@
 //
-//  Tabs.swift
+//  TabBarView.swift
 //  DikidiNour
 //
 //  Created by Vovchela10 on 05.06.2024.
@@ -10,26 +10,33 @@ import SwiftUI
 
 struct TabBarView: View {
     @State private var selectedTab: Tabs = .main
+    @EnvironmentObject var viewModel: DikidiViewModel
     
     var body: some View {
         TabView(selection: $selectedTab) {
             ForEach(Tabs.allCases, id: \.self) { tab in
-                DikidiView(viewModel: DikidiViewModel(dikidiService: DikidiService(networkService: NetworkService(), requestFactory: DikidiRequestService()) ))
-                    .tabItem {
-                        Image(systemName: tab.image)
-                        Text(tab.title)
+                NavigationView {
+                    switch tab {
+                    case .main:
+                        DikidiView(viewModel: viewModel)
+                    case .catalog:
+                        CatalogSection()
+                            .environmentObject(viewModel)
+                    case .promotions:
+                        DiscontView()
+                    case .myNotes:
+                        AuthorizationView()
+                    case .more:
+                        ProfileView()
                     }
-                    .tag(tab)
-                    .badge(1)
+                }
+                .tabItem {
+                    Image(systemName: tab.image)
+                    Text(tab.title)
+                }
+                .tag(tab)
             }
         }
-    }
-}
-
-struct SwiftUIView_Previews: PreviewProvider {
-    static var previews: some View {
-        TabBarView()
-            .environmentObject(DikidiViewModel(dikidiService: DikidiService(networkService: NetworkService(), requestFactory: DikidiRequestService()) ))
     }
 }
 
@@ -70,4 +77,3 @@ enum Tabs: CaseIterable, Hashable {
         }
     }
 }
-

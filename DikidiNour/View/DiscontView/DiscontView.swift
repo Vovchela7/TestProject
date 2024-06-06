@@ -8,11 +8,24 @@
 import SwiftUI
 
 struct DiscontView: View {
+    @EnvironmentObject private var mainViewModel: DikidiViewModel
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(alignment: .center) {
+            Text("Акции")
+                .bold()
+                .font(.title2)
+                .padding(.horizontal)
+            ScrollView {
+                LazyVStack(spacing: 15) {
+                    ForEach(mainViewModel.shares, id: \.self.id) { card in
+                        DiscontCell(card: card)
+                    }
+                }
+                .padding(.horizontal)
+            }
+        }
+        .padding(.bottom)
+        .background(Color.green.opacity(0.12))
     }
-}
-
-#Preview {
-    DiscontView()
 }

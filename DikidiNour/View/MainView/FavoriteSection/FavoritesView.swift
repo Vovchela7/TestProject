@@ -9,7 +9,7 @@ import SwiftUI
 
 struct FavoritesSection: View {
     @EnvironmentObject var viewModel: DikidiViewModel
-
+    
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
